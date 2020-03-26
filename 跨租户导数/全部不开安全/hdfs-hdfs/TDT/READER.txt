@@ -1,0 +1,20 @@
+
+1.hdfs_hdfs_small_hdfs.json  跨租户的hdfs的小文件互导   778k
+  
+  wf内容：通过数据流任务，调度tdt的数据流，执行从源端inceptor 表中，把数据导入到目标端hdfs路径下  实现 跨租户的hdfs的小文件互导  TDT
+  
+2.hdfs_hdfs_small_hdfs.json  跨租户的hdfs的大文件互导   1g     执行时长为3min
+
+  wf内容：通过数据流任务，调度tdt的数据流，执行从源端hdfs中，把数据导入到目标端hdfs路径下  实现 跨租户的hdfs的大文件互导  TDT
+  
+  
+  TDT_图片：
+       1.hdfs_hdfs_small_tdt_1.png   跨租户的hdfs的小文件互导的TDT 图片
+	   
+   
+  hdfs_hdfs_tdt_json 文件夹
+  
+    1.hdfs_hdfs_small_hdfs_tdt.json    跨租户的hdfs的小文件互导的TDT_json
+	2.hdfs_hdfs_big_hdfs_tdt.json    跨租户的hdfs的大文件互导的TDT_json
+	
+	

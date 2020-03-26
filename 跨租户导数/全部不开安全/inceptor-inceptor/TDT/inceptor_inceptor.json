@@ -1,0 +1,137 @@
+{
+	"deps": [{
+		"upstream": "case15",
+		"downstream": "shell_120",
+		"relation": "YES"
+	}, {
+		"upstream": "shell_120",
+		"downstream": "case14",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 24,
+		"id": 26,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "case15",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"25": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 314,
+			"y": 84
+		},
+		"pluginName": "dataflow",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"060db2ff-95f0-4794-9d53-86bb9dd6c797\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 24,
+		"id": 25,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "shell_120",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"26": "YES"
+		},
+		"postRelation": {
+			"27": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 673,
+			"y": 339
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"sleep 120\",\"type\":\"NONE\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 24,
+		"id": 27,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "case14",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"25": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 840,
+			"y": 540
+		},
+		"pluginName": "dataflow",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"d43f607b-5d9c-473c-b4e1-bb9ad831b336\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 24,
+		"name": "case14-case15",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "workflow",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[]",
+		"preRelation": null,
+		"postRelation": null,
+		"createTime": "2020-03-12 16:01:37",
+		"lastUpdateTime": "2020-03-12 16:03:17",
+		"email": null,
+		"sms": null,
+		"desc": "1",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "case15",
+			"downstream": "shell_120",
+			"relation": "YES"
+		}, {
+			"upstream": "shell_120",
+			"downstream": "case14",
+			"relation": "YES"
+		}]
+	}
+}

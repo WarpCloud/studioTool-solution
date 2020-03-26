@@ -1,0 +1,72 @@
+
+1.inceptor_inceptor_table_only.json  inceptor-inceptor 跨租户表文件互导 
+  
+  wf内容: 通过sql任务，创建orc事务表，通过数据流导入数据到orc事务表，再把orc事务表数据导出数据到hdfs
+          通过distcp 把数据拷贝到38hdfs上，然后通过TDT 把 数据导入到38 inceptor orc事务表中   使用wf+tdt来实现跨租户多表文件互导
+		  
+		  
+2.inceptor_inceptor_table_many.json inceptor-inceptor 跨租户多表文件互导 
+
+  wf内容: 通过sql任务，创建多张orc事务表，通过数据流导入数据到orc事务表，再把orc事务表数据导出数据到hdfs
+          通过distcp 把数据拷贝到38hdfs上，然后通过TDT 把 数据导入到38 inceptor orc事务表中    使用wf+tdt来实现跨租户多表文件互导
+		  
+		  
+   图片：inceptor_inceptor_table_many_tdt_1.png，   表示的是通过TDT数据流，把数据导出到源端hdfs 图片
+         inceptor_inceptor_table_many_tdt_2.png，
+		 inceptor_inceptor_table_many_tdt_3.png，
+		 
+		 
+		 inceptor_inceptor_table_many_tdt_4.png     表示的是通过TDT数据流，把载入的数据 导入到 目标端 inceptor orc事务表中
+		 inceptor_inceptor_table_many_tdt_5.png
+		 
+		 
+		 
+   TDT_json:
+           1.inceptor_inceptor_table_only  文件夹   里面是TDT数据流json文件    跨租户表文件互导 TDT数据流
+		   
+		   1.inceptor_inceptor_table_only_tdt_89.json    导入数据流 到源端inceptor orc事务表中
+		   2.inceptor_inceptor_hdfs_only_tdt_89.json     导出源端inceptor orc事务表中数据到 本地hdfs目录上
+		   3.inceptor_inceptor_table_only_tdt_38.json    把distcp拷贝过来的数据，导入到目标端inceptor orc事务表中
+		   
+		   
+		   2.inceptor_inceptor_table_many  文件夹   里面是TDT数据流json文件    跨租户多表文件互导 TDT数据流
+		   
+		   1.inceptor_inceptor_table_many_tdt_89_1.json    分别导入数据流 到源端inceptor 的3张orc事务表中
+		     inceptor_inceptor_table_many_tdt_89_2.json
+			 inceptor_inceptor_table_many_tdt_89_3.json
+			 
+			 
+		   2.inceptor_inceptor_hdfs_many_tdt_89_1.json     分别导出源端inceptor的3张orc事务表中数据到 本地hdfs目录上
+		     inceptor_inceptor_hdfs_many_tdt_89_2.json
+			 inceptor_inceptor_hdfs_many_tdt_89_3.json
+			 
+		   3.inceptor_inceptor_table_many_tdt_38_1.json    把distcp拷贝过来的数据，导入到目标端inceptor orc事务表中
+		     inceptor_inceptor_table_many_tdt_38_2.json
+			 inceptor_inceptor_table_many_tdt_38_3.json
+
+
+
+
+注意：
+WF 参数解析：
+${hostname_inceptor_A} 填写源端inceptor ip
+${hostname_inceptor_B} 填写目标端inceptor ip
+${hostname_distcp_A} 填写源端namenode hdfs ip
+${hostname_distcp_B} 填写目标端namenode hdfs ip
+${guardian_token} 填写源端inceptor guardian token
+
+如果试用wf的脚本任务，但是同时需要调用hdfs等客户端，可以试用tdhclient，具体操作可详见workflow的操作文档，下面简单描述：
+1 需要把TDH-client.tar 添加到/var/lib/workflow{id}/ 目录下
+2 并重启workflow服务，才能source TDH-client 成功
+
+只支持从安全到不开安全的distcp,不支持不开安全到开安全的，执行distcp 添加的参数：
+-Dipc.client.fallback-to-simple-auth-allowed=true  这个参数不支持 源端和目标端都不开安全的环境，或者源端和目标端都开安全的环境
+例如:hadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://node089:8020/sql_hbase hdfs://172.26.5.39:8020/test_data
+	
+
+
+
+
+
+
+

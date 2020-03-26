@@ -1,0 +1,311 @@
+{
+	"deps": [{
+		"upstream": "89_导入数据_hbase_1",
+		"downstream": "89_导出es表数据_sql",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导入数据_hbase_2",
+		"downstream": "89_导出es表数据_sql",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导入数据_hbase_3",
+		"downstream": "89_导出es表数据_sql",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导出es表数据_sql",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "38_导数数据_es_sql",
+		"relation": "YES"
+	}, {
+		"upstream": "89_创建hbase表",
+		"downstream": "89_导入数据_hbase_1",
+		"relation": "YES"
+	}, {
+		"upstream": "89_创建hbase表",
+		"downstream": "89_导入数据_hbase_2",
+		"relation": "YES"
+	}, {
+		"upstream": "89_创建hbase表",
+		"downstream": "89_导入数据_hbase_3",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 11,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_创建hbase表",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"103": "YES",
+			"104": "YES",
+			"105": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 983,
+			"y": 31
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_hbase_1;\\nCREATE  TABLE test_data.sql_hbase_1(\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\\n\\n\\ndrop table test_data.sql_hbase_2;\\nCREATE  TABLE test_data.sql_hbase_2(\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\\n\\n\\n\\ndrop table test_data.sql_hbase_3;\\nCREATE  TABLE test_data.sql_hbase_3(\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 15,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导出es表数据_sql",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"103": "YES",
+			"104": "YES",
+			"105": "YES"
+		},
+		"postRelation": {
+			"16": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 991,
+			"y": 369
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_csv_inceptor_1;\\ndrop table test_data.sql_csv_inceptor_2;\\ndrop table test_data.sql_csv_inceptor_3;\\n\\ndrop view test_data.sql_hbase_view_1;\\ndrop view test_data.sql_hbase_view_2;\\ndrop view test_data.sql_hbase_view_3;\\n\\n\\n\\nCREATE VIEW  test_data.sql_hbase_view_1(\\n`n1`,`n2`,n3,`n4`,`n5`,`n6`,`n7`,`n8`,`n9`,`n10`,`n11`,`n12`,`n13`,`n14`,`n15`\\n) AS SELECT\\n`n1`,\\n`n2`,\\n n3,\\n`n4`,\\n`n5`,\\n`n6`,\\n`n7`,\\n`n8`,\\n`n9`,\\n`n10`,\\n`n11`,\\n`n12`,\\n`n13`,\\n`n14`,\\n`n15`\\nFROM\\n`test_data`.`sql_hbase_1`;\\n\\n\\nCREATE VIEW  test_data.sql_hbase_view_2(\\n`n1`,`n2`,n3,`n4`,`n5`,`n6`,`n7`,`n8`,`n9`,`n10`,`n11`,`n12`,`n13`,`n14`,`n15`\\n) AS SELECT\\n`n1`,\\n`n2`,\\n n3,\\n`n4`,\\n`n5`,\\n`n6`,\\n`n7`,\\n`n8`,\\n`n9`,\\n`n10`,\\n`n11`,\\n`n12`,\\n`n13`,\\n`n14`,\\n`n15`\\nFROM\\n`test_data`.`sql_hbase_2`;\\n\\n\\nCREATE VIEW  test_data.sql_hbase_view_3(\\n`n1`,`n2`,n3,`n4`,`n5`,`n6`,`n7`,`n8`,`n9`,`n10`,`n11`,`n12`,`n13`,`n14`,`n15`\\n) AS SELECT\\n`n1`,\\n`n2`,\\n n3,\\n`n4`,\\n`n5`,\\n`n6`,\\n`n7`,\\n`n8`,\\n`n9`,\\n`n10`,\\n`n11`,\\n`n12`,\\n`n13`,\\n`n14`,\\n`n15`\\nFROM\\n`test_data`.`sql_hbase_3`;\\n\\n\\nCREATE TABLE `test_data`.`sql_csv_inceptor_1`(\\n`n1` String,`n3` String,`n2` String,`n4` String,`n5` String,`n6` String,`n7` String,`n8` String,`n9` String,`n10` String,`n11` String,`n12` String,`n13` String,`n14` String,`n15` String\\n)\\nSTORED AS CSVFILE location '/sql_hbase_zong/sql_csv_inceptor_1' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\nCREATE TABLE `test_data`.`sql_csv_inceptor_2`(\\n`n1` String,`n3` String,`n2` String,`n4` String,`n5` String,`n6` String,`n7` String,`n8` String,`n9` String,`n10` String,`n11` String,`n12` String,`n13` String,`n14` String,`n15` String\\n)\\nSTORED AS CSVFILE location '/sql_hbase_zong/sql_csv_inceptor_2' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\nCREATE TABLE `test_data`.`sql_csv_inceptor_3`(\\n`n1` String,`n3` String,`n2` String,`n4` String,`n5` String,`n6` String,`n7` String,`n8` String,`n9` String,`n10` String,`n11` String,`n12` String,`n13` String,`n14` String,`n15` String\\n)\\nSTORED AS CSVFILE location '/sql_hbase_zong/sql_csv_inceptor_3' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\nset mapred.reduce.tasks = 1;\\n\\n\\nINSERT into `test_data`.`sql_csv_inceptor_1`\\nSELECT * FROM\\ntest_data.sql_hbase_view_1 DISTRIBUTE BY CEIL(RAND() * 1);\\n\\n\\n\\nINSERT into `test_data`.`sql_csv_inceptor_2`\\nSELECT * FROM\\ntest_data.sql_hbase_view_2 DISTRIBUTE BY CEIL(RAND() * 1);\\n\\n\\n\\nINSERT into `test_data`.`sql_csv_inceptor_3`\\nSELECT * FROM\\ntest_data.sql_hbase_view_3 DISTRIBUTE BY CEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 16,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"15": "YES"
+		},
+		"postRelation": {
+			"17": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 991,
+			"y": 519
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -Dipc.client.fallback-to-simple-auth-allowed=true -rm -r -f skipTrash hdfs://${hostname_distcp_B}:8020/test_data/sql_hbase_zong\\n\\nhadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://${hostname_distcp_A}:8020/sql_hbase_zong hdfs://${hostname_distcp_B}:8020/test_data\",\"krb\":{\"keytab\":\"/etc/workflow10/conf/workflow.keytab\",\"principal\":\"workflow/node088@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 17,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_导数数据_es_sql",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"16": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 994,
+			"y": 689
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_hbase_csv_1;\\ndrop table test_data.sql_hbase_csv_2;\\ndrop table test_data.sql_hbase_csv_3;\\n\\ndrop table `test_data`.`sql_hbase_1` ;\\ndrop table `test_data`.`sql_hbase_2` ;\\ndrop table `test_data`.`sql_hbase_3` ;\\n\\n\\nCREATE TABLE test_data.sql_hbase_csv_1 (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\n STORED AS csvfile LOCATION '/test_data/sql_hbase_zong/sql_csv_inceptor_1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\nCREATE TABLE test_data.sql_hbase_csv_2 (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\n STORED AS csvfile LOCATION '/test_data/sql_hbase_zong/sql_csv_inceptor_2' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\nCREATE TABLE test_data.sql_hbase_csv_3 (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\n STORED AS csvfile LOCATION '/test_data/sql_hbase_zong/sql_csv_inceptor_3' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\n\\nCREATE TABLE IF NOT EXISTS `test_data`.`sql_hbase_1` (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\\n\\n\\nCREATE TABLE IF NOT EXISTS `test_data`.`sql_hbase_2` (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\\n\\n\\nCREATE TABLE IF NOT EXISTS `test_data`.`sql_hbase_3` (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler';\\n\\n\\n\\nset transaction.type=inceptor;\\nSET mapred.reduce.tasks = 5;\\nSET hive.exec.dynamic.partition=true;\\n\\ninsert into `test_data`.`sql_hbase_1` \\nselect * from test_data.sql_hbase_csv_1;\\n\\n\\ninsert into `test_data`.`sql_hbase_2` \\nselect * from test_data.sql_hbase_csv_2;\\n\\n\\ninsert into `test_data`.`sql_hbase_3` \\nselect * from test_data.sql_hbase_csv_3;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 103,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导入数据_hbase_1",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"11": "YES"
+		},
+		"postRelation": {
+			"15": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 753,
+			"y": 212
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hbase_wiwe_1;\\ndrop table  `test_data`.`sql_hbase_csv_1`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hbase_csv_1(\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hbase_wiwe_1 as select * from `test_data`.`sql_hbase_csv_1`;\\n\\ninsert into test_data.sql_hbase_1 select * from test_data.sql_hbase_wiwe_1;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 104,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导入数据_hbase_2",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"11": "YES"
+		},
+		"postRelation": {
+			"15": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 989,
+			"y": 209
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hbase_wiwe_2;\\ndrop table  `test_data`.`sql_hbase_csv_2`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hbase_csv_2(\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hbase_wiwe_2 as select * from `test_data`.`sql_hbase_csv_2`;\\n\\ninsert into test_data.sql_hbase_2 select * from test_data.sql_hbase_wiwe_2;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 10,
+		"id": 105,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导入数据_hbase_3",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"11": "YES"
+		},
+		"postRelation": {
+			"15": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 1228,
+			"y": 211
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hbase_wiwe_3;\\ndrop table  `test_data`.`sql_hbase_csv_3`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hbase_csv_3(\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable3' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hbase_wiwe_3 as select * from `test_data`.`sql_hbase_csv_3`;\\n\\ninsert into test_data.sql_hbase_3 select * from test_data.sql_hbase_wiwe_3;\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 10,
+		"name": "hbase_跨租户多表文件互导_sql",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "admin",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"guardiantoken\",\"type\":\"CONSTANT\",\"expr\":\"2FaWdFEWYpE1EjZvbX9u-TDH\"},{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_inceptor_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.38\"},{\"name\":\"hostname_distcp_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_distcp_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.39\"}]",
+		"preRelation": {},
+		"postRelation": {},
+		"createTime": null,
+		"lastUpdateTime": null,
+		"preDept": [],
+		"postDept": [],
+		"email": null,
+		"sms": null,
+		"desc": "开安全-不开安全",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "89_导入数据_hbase_1",
+			"downstream": "89_导出es表数据_sql",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导入数据_hbase_2",
+			"downstream": "89_导出es表数据_sql",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导入数据_hbase_3",
+			"downstream": "89_导出es表数据_sql",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导出es表数据_sql",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "38_导数数据_es_sql",
+			"relation": "YES"
+		}, {
+			"upstream": "89_创建hbase表",
+			"downstream": "89_导入数据_hbase_1",
+			"relation": "YES"
+		}, {
+			"upstream": "89_创建hbase表",
+			"downstream": "89_导入数据_hbase_2",
+			"relation": "YES"
+		}, {
+			"upstream": "89_创建hbase表",
+			"downstream": "89_导入数据_hbase_3",
+			"relation": "YES"
+		}]
+	}
+}

@@ -1,0 +1,118 @@
+{
+	"uniqueId": "08ff5428-90f4-4489-be8d-c8bf5c71e08f",
+	"name": "tdt_hbase_csv",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"owner": "admin",
+		"isPublic": false,
+		"createTime": "2020-03-18 13:26:14",
+		"lastUpdateTime": "2020-03-24 11:02:56"
+	},
+	"workspaceId": 1,
+	"executionConnectionId": 3,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "INCEPTOR_READER",
+		"dstName": "MULTICSV_WRITER"
+	}],
+	"components": [{
+		"id": "207",
+		"dataflowId": 152,
+		"name": "INCEPTOR_READER",
+		"componentType": "READER",
+		"componentSubType": "INCEPTOR",
+		"position": {
+			"x": 900,
+			"y": 347
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-18 13:27:11",
+			"lastUpdateTime": "2020-03-18 13:27:11"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"tdt_hbase\""
+		}, {
+			"name": "Connections",
+			"value": "[3]"
+		}, {
+			"name": "InputTableNames",
+			"value": "[\"tdt_hbase\"]"
+		}, {
+			"name": "TableDetails",
+			"value": "[{\"inputTableName\":\"tdt_hbase\",\"columns\":[{\"name\":\"n1\",\"type\":\"string\"},{\"name\":\"n2\",\"type\":\"string\"},{\"name\":\"n3\",\"type\":\"string\"},{\"name\":\"n4\",\"type\":\"date\"},{\"name\":\"n5\",\"type\":\"string\"},{\"name\":\"n6\",\"type\":\"decimal(38,10)\"},{\"name\":\"n7\",\"type\":\"smallint\"},{\"name\":\"n8\",\"type\":\"int\"},{\"name\":\"n9\",\"type\":\"string\"},{\"name\":\"n10\",\"type\":\"string\"},{\"name\":\"n11\",\"type\":\"string\"},{\"name\":\"n12\",\"type\":\"boolean\"},{\"name\":\"n13\",\"type\":\"tinyint\"},{\"name\":\"n14\",\"type\":\"decimal(38,10)\"},{\"name\":\"n15\",\"type\":\"decimal(10,2)\"}],\"selected\":true}]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"string\",\"string\",\"string\",\"date\",\"string\",\"decimal(38,10)\",\"smallint\",\"int\",\"string\",\"string\",\"string\",\"boolean\",\"tinyint\",\"decimal(38,10)\",\"decimal(10,2)\"]"
+		}],
+		"_uniqueId": "READER_INCEPTOR_1585019292821_0.1213836522120475"
+	}, {
+		"id": "208",
+		"dataflowId": 152,
+		"name": "MULTICSV_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "MULTICSV",
+		"position": {
+			"x": 1145,
+			"y": 307
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-18 13:27:11",
+			"lastUpdateTime": "2020-03-18 13:27:11"
+		},
+		"componentConfigs": [{
+			"name": "Location",
+			"value": "\"/test_data/tdt_hbase_tdt\""
+		}, {
+			"name": "FieldDelimiter",
+			"value": "\",\""
+		}, {
+			"name": "QuoteDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "LineDelimiter",
+			"value": "\"\\\\n\""
+		}, {
+			"name": "EscapeDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "Encoding",
+			"value": "\"UTF-8\""
+		}, {
+			"name": "BinaryEncoding",
+			"value": "\"HEX\""
+		}, {
+			"name": "NullString",
+			"value": "null"
+		}, {
+			"name": "AverageFileSize",
+			"value": "\"1GB\""
+		}, {
+			"name": "Overwrite",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[2]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[]"
+		}],
+		"_uniqueId": "WRITER_MULTICSV_1585019292821_0.9225812006307905"
+	}]
+}

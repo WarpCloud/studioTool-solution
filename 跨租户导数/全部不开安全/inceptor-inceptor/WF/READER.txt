@@ -1,0 +1,20 @@
+
+1.inceptor_inceptor_only_table.json  跨租户表文件互导 通过sql进行
+
+  wf内容：通过sql任务，创建表，导入数据 导出数据，再通过distcp 命令拷贝数据到目标端hdfs
+          然后通过sql任务 在目标端创建表，导入数据   
+		  
+2.inceptor_inceptor_many_table.json
+
+  wf内容：通过sql任务，创建多张orc事务表，导入数据，导出数据，再通过distcp 命令拷贝数据到目标端hdfs
+          然后通过sql任务 在目标端创建表，导入数据   
+
+
+WF 参数解析：
+${hostname_inceptor_A} 填写源端inceptor ip
+${hostname_inceptor_B} 填写目标端inceptor ip
+${hostname_distcp_A} 填写源端namenode hdfs ip
+${hostname_distcp_B} 填写目标端namenode hdfs ip
+${guardian_token} 填写源端inceptor guardian token
+
+

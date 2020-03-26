@@ -1,0 +1,99 @@
+{
+	"deps": [{
+		"upstream": "35_创建源表_orc",
+		"downstream": "TDT_导入数据_hdfs_38",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 20,
+		"id": 21,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "TDT_导入数据_hdfs_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"181": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 431,
+			"y": 220
+		},
+		"pluginName": "dataflow",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"f7606b30-5432-41a1-b88b-8e62dedb4bbe\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 20,
+		"id": 181,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_创建源表_orc",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"21": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 356,
+			"y": 87
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;\",\"type\":\"NONE\",\"content\":\"create database if not exists ww;\\nuse ww;\\n\\ndrop table ww.test_orc;\\n\\ncreate table ww.test_orc(\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED AS ORC;\\n\\ndrop view test_data.test_vi;\\ncreate view test_data.test_vi as select * from ww.test_orc;\\n\\ndrop table test_data.test_hdfs_orc;\\nCREATE EXTERNAL TABLE test_data.test_hdfs_orc (\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nSTORED AS CSVFILE\\nlocation '/tdt_auto_test_dc/autotable1' \\nTBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='');\\n\\nset mapred.reduce.tasks = 1;\\n\\nINSERT INTO TABLE\\ntest_data.test_hdfs_orc SELECT * FROM test_data.test_vi DISTRIBUTE\\nBY\\nCEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 20,
+		"name": "case2",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "workflow",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.35\"}]",
+		"preRelation": null,
+		"postRelation": null,
+		"createTime": "2020-03-12 14:33:22",
+		"lastUpdateTime": "2020-03-25 13:28:32",
+		"email": null,
+		"sms": null,
+		"desc": "1",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "35_创建源表_orc",
+			"downstream": "TDT_导入数据_hdfs_38",
+			"relation": "YES"
+		}]
+	}
+}

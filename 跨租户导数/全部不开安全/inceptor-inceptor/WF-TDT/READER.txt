@@ -1,0 +1,47 @@
+
+1.inceptor_inceptor_sync.json TDT同步  
+  
+  wf内容：通过数据流任务 导入数据 到目标表，通过sql任务 执行普通表和总表
+
+2.inceptor_inceptor_only_table.json  跨租户表文件互导 
+
+  wf内容：通过sql任务 创建表，调动tdt数据任务流，导入数据，再通过sql任务，导出数据到hdfs，然后
+          用脚本任务执行 distcp 命令，拷贝数据到目标端hdfs，再通过sql任务 建数据库 获取拷贝到目标端上的hdfs，  
+		  
+3.inceptor_inceptor_many_table.json  跨租户多表文件互导		  
+
+    wf内容：通过sql任务 创建多张表，调动tdt数据任务流，导入数据，再通过sql任务，导出数据到hdfs，然后
+          用脚本任务执行 distcp 命令，拷贝数据到目标端hdfs，再通过sql任务 建数据库 获取拷贝到目标端上的hdfs，  
+  
+  TDT_json:
+  
+ 1.inceptor_inceptor_sync_tdt_json  文件夹 存放 TDT同步的数据流json
+ 
+     1.inceptor_inceptor_sync_1.json  TDT 把总表数据导入到目标数据库
+	 
+	 2.inceptor_inceptor_sync_1.json  TDT 把普通表数据导入到目标数据库
+	   inceptor_inceptor_sync_2.json
+	   inceptor_inceptor_sync_3.json
+	   inceptor_inceptor_sync_4.json
+	   inceptor_inceptor_sync_5.json
+	   
+ 2.inceptor_inceptor_only_table_tdt_json  文件夹存放 跨租户表文件互导 的数据流json
+ 
+   1.inceptor_inceptor_only_table_tdt.json  导入数据到orc表中
+   
+   
+ 3.inceptor_inceptor_many_table_tdt_json  文件夹存放 跨租户多表文件互导 的数据流json
+   
+   1.inceptor_inceptor_many_table_tdt_1.json  导入数据到orc表中
+     inceptor_inceptor_many_table_tdt_2.json
+	 inceptor_inceptor_many_table_tdt_3.json
+	 inceptor_inceptor_many_table_tdt_4.json
+	 inceptor_inceptor_many_table_tdt_5.json
+
+
+ WF 参数解析：
+${hostname_inceptor_A} 填写源端inceptor ip
+${hostname_inceptor_B} 填写目标端inceptor ip
+${hostname_distcp_A} 填写源端namenode hdfs ip
+${hostname_distcp_B} 填写目标端namenode hdfs ip
+${guardian_token} 填写源端inceptor guardian token
