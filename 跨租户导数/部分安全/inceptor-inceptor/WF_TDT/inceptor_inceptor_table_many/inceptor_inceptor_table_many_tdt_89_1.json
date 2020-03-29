@@ -1,0 +1,142 @@
+{
+	"uniqueId": "14433735-491e-4aca-891b-5666aa2a60e1",
+	"name": "tdt_icneptor_orc_shi_wu_1",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"owner": "admin",
+		"isPublic": false,
+		"createTime": "2020-03-19 14:48:09",
+		"lastUpdateTime": "2020-03-24 18:53:19"
+	},
+	"workspaceId": 1,
+	"executionConnectionId": 3,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "CSV_READER",
+		"dstName": "ORC_WRITER"
+	}],
+	"components": [{
+		"id": "26",
+		"dataflowId": 20,
+		"name": "CSV_READER",
+		"componentType": "READER",
+		"componentSubType": "CSV",
+		"position": {
+			"x": 566,
+			"y": 320
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-19 14:49:33",
+			"lastUpdateTime": "2020-03-19 14:49:33"
+		},
+		"componentConfigs": [{
+			"name": "Location",
+			"value": "\"/tdt_auto_test_dc/autotable1\""
+		}, {
+			"name": "FieldDelimiter",
+			"value": "\"|\""
+		}, {
+			"name": "QuoteDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "LineDelimiter",
+			"value": "\"\\\\n\""
+		}, {
+			"name": "Encoding",
+			"value": "\"UTF-8\""
+		}, {
+			"name": "ContainFirstRow",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[2]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\"]"
+		}],
+		"_uniqueId": "READER_CSV_1585047392446_0.6451637812619107"
+	}, {
+		"id": "27",
+		"dataflowId": 20,
+		"name": "ORC_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "ORCTRANSACTION",
+		"position": {
+			"x": 780,
+			"y": 298
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-19 14:49:33",
+			"lastUpdateTime": "2020-03-19 14:49:33"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"tdt_inceptor_orc_shi_wu_1\""
+		}, {
+			"name": "SinglePartition",
+			"value": "true"
+		}, {
+			"name": "PartitionColumnNames",
+			"value": "[\"n3\"]"
+		}, {
+			"name": "PartitionColumnTypes",
+			"value": "[\"string\"]"
+		}, {
+			"name": "RangePartition",
+			"value": "false"
+		}, {
+			"name": "PartitionRangeKeys",
+			"value": "null"
+		}, {
+			"name": "PartitionRangeValues",
+			"value": "null"
+		}, {
+			"name": "BucketNumber",
+			"value": "5"
+		}, {
+			"name": "ClusterKey",
+			"value": "\"n2\""
+		}, {
+			"name": "SortKeys",
+			"value": "null"
+		}, {
+			"name": "SortAscDirections",
+			"value": "null"
+		}, {
+			"name": "TruncateTable",
+			"value": "false"
+		}, {
+			"name": "Existed",
+			"value": "false"
+		}, {
+			"name": "Connections",
+			"value": "[3]"
+		}, {
+			"name": "InputTableNames",
+			"value": "[]"
+		}, {
+			"name": "TableDetails",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[]"
+		}],
+		"_uniqueId": "WRITER_ORCTRANSACTION_1585047392446_0.511800479208441"
+	}]
+}

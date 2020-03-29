@@ -1,0 +1,291 @@
+{
+	"deps": [{
+		"upstream": "89_创建es",
+		"downstream": "89_导入数据_es",
+		"relation": "YES"
+	}, {
+		"upstream": "89_mkdir_hdfs_创建文件夹",
+		"downstream": "89_导出数据_hdfs_tdt",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导入数据_es",
+		"downstream": "89_mkdir_hdfs_创建文件夹",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导出数据_hdfs_tdt",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}, {
+		"upstream": "38_创建es",
+		"downstream": "38_导入数据_tdt",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "38_创建es",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 81,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_创建es",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"82": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 927,
+			"y": 43
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_es_wf_89;\\nCREATE  TABLE test_data.tdt_es_wf_89(\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nstored as ES\\nwith shard number 10\\nreplication 1;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 82,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导入数据_es",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"81": "YES"
+		},
+		"postRelation": {
+			"84": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 749,
+			"y": 165
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.tdt_es_wf_view_89;\\ndrop table  `test_data`.`tdt_es_wf_csv_89`;\\n\\nCREATE EXTERNAL TABLE test_data.tdt_es_wf_csv_89(\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.tdt_es_wf_view_89 as select * from `test_data`.`tdt_es_wf_csv_89`;\\n\\ninsert into test_data.tdt_es_wf_89 select * from test_data.tdt_es_wf_view_89;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 83,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导出数据_hdfs_tdt",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"84": "YES"
+		},
+		"postRelation": {
+			"85": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 739,
+			"y": 417
+		},
+		"pluginName": "transporter",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"tdt_task_type\":1,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"c56159c0-84c6-4418-8772-fc7c2326f128\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 84,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_mkdir_hdfs_创建文件夹",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"82": "YES"
+		},
+		"postRelation": {
+			"83": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 971,
+			"y": 292
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs  -rm -r -f skipTrash  /test_data/tdt_es_wf_89\\n\\nhdfs dfs -mkdir /test_data/tdt_es_wf_89\\n\\nhdfs dfs -chmod 777 /test_data/tdt_es_wf_89\",\"krb\":{\"keytab\":\"/etc/workflow10/conf/workflow.keytab\",\"principal\":\"workflow/node088@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 85,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"83": "YES"
+		},
+		"postRelation": {
+			"87": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 981,
+			"y": 577
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -Dipc.client.fallback-to-simple-auth-allowed=true  -rm -r -f skipTrash hdfs://${hostname_distcp_B}:8020/test_data/tdt_es_wf_89\\n\\nhadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://${hostname_distcp_A}:8020/test_data/tdt_es_wf_89 hdfs://${hostname_distcp_B}:8020/test_data\",\"krb\":{\"keytab\":\"/etc/workflow10/conf/workflow.keytab\",\"principal\":\"workflow/node088@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 86,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_导入数据_tdt",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"87": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 987,
+			"y": 832
+		},
+		"pluginName": "transporter",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"tdt_task_type\":1,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"2f0b155e-a094-4520-bb4e-1cf1076a7211\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 80,
+		"id": 87,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_创建es",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"85": "YES"
+		},
+		"postRelation": {
+			"86": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 742,
+			"y": 725
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_es_wf_89;\\n\\nCREATE  TABLE test_data.tdt_es_wf_89 (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nstored as ES\\nwith shard number 10\\nreplication 1;\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 80,
+		"name": "search_跨租户表文件互导_tdt_wf",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "admin",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"guardiantoken\",\"type\":\"CONSTANT\",\"expr\":\"2FaWdFEWYpE1EjZvbX9u-TDH\"},{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_distcp_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_distcp_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.39\"},{\"name\":\"hostname_inceptor_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.38\"}]",
+		"preRelation": {},
+		"postRelation": {},
+		"createTime": null,
+		"lastUpdateTime": null,
+		"preDept": [],
+		"postDept": [],
+		"email": null,
+		"sms": null,
+		"desc": "1",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "89_创建es",
+			"downstream": "89_导入数据_es",
+			"relation": "YES"
+		}, {
+			"upstream": "89_mkdir_hdfs_创建文件夹",
+			"downstream": "89_导出数据_hdfs_tdt",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导入数据_es",
+			"downstream": "89_mkdir_hdfs_创建文件夹",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导出数据_hdfs_tdt",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}, {
+			"upstream": "38_创建es",
+			"downstream": "38_导入数据_tdt",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "38_创建es",
+			"relation": "YES"
+		}]
+	}
+}

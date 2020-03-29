@@ -1,0 +1,215 @@
+{
+	"deps": [{
+		"upstream": "89_创建es表",
+		"downstream": "89_导入数据_es",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导入数据_es",
+		"downstream": "89_导出数据_es",
+		"relation": "YES"
+	}, {
+		"upstream": "89_导出数据_es",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "38_创建es_导入数据",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 62,
+		"id": 63,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_创建es表",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"64": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 932,
+			"y": 27
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_es_wf;\\nCREATE  TABLE test_data.sql_es_wf(\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nstored as ES\\nwith shard number 10\\nreplication 1;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 62,
+		"id": 64,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导入数据_es",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"63": "YES"
+		},
+		"postRelation": {
+			"65": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 728,
+			"y": 159
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_es_wf_view;\\ndrop table  `test_data`.`sql_es_wf_csv`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_es_wf_csv(\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_es_wf_view as select * from `test_data`.`sql_es_wf_csv`;\\n\\ninsert into test_data.sql_es_wf select * from test_data.sql_es_wf_view;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 62,
+		"id": 65,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "89_导出数据_es",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"64": "YES"
+		},
+		"postRelation": {
+			"66": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 932,
+			"y": 291
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_es_wf_views;\\n\\ndrop table test_data.sql_es_wf_csvs;\\n\\ncreate view test_data.sql_es_wf_views as select * from test_data.sql_es_wf;\\n\\nCREATE TABLE test_data.sql_es_wf_csvs\\n(\\n`n1` BigInt,`n2` String,`n3` String,`n4` Date,`n5` String,`n6` Decimal(38,10),`n7` SmallInt,`n8` Int,`n9` String,`n10` String,`n11` String,`n12` Boolean,`n13` TinyInt,`n14` Decimal(38,10),`n15` Decimal(10,2)\\n)\\nSTORED AS CSVFILE location '/test_data/sql_es_wf' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\nset mapred.reduce.tasks = 1;\\n\\ninsert into test_data.sql_es_wf_csvs select * from test_data.sql_es_wf_views DISTRIBUTE BY CEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 62,
+		"id": 66,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"65": "YES"
+		},
+		"postRelation": {
+			"67": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 715,
+			"y": 447
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -Dipc.client.fallback-to-simple-auth-allowed=true  -rm -r -f skipTrash hdfs://${hostname_distcp_B}:8020/test_data/sql_es_wf\\n\\nhadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://${hostname_distcp_A}:8020/test_data/sql_es_wf hdfs://${hostname_distcp_B}:8020/test_data\",\"krb\":{\"keytab\":\"/etc/workflow10/conf/workflow.keytab\",\"principal\":\"workflow/node088@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 62,
+		"id": 67,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_创建es_导入数据",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"66": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 928,
+			"y": 595
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_es_wf;\\ndrop table test_data.sql_es_wf_csv;\\ndrop view test_data.sql_es_wf_view;\\n\\n\\nCREATE TABLE test_data.sql_es_wf_csv (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nSTORED AS csvfile LOCATION '/test_data/sql_es_wf' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\ncreate view test_data.sql_es_wf_view as select * from test_data.sql_es_wf_csv;\\n\\n\\nCREATE  TABLE test_data.sql_es_wf (\\n`n1` string,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nstored as ES\\nwith shard number 10\\nreplication 1;\\n\\nset transaction.type=inceptor;\\nSET mapred.reduce.tasks = 5;\\n\\ninsert into `test_data`.`sql_es_wf` select * from test_data.sql_es_wf_view;\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 62,
+		"name": "search_跨租户表文件互导_sql",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "admin",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_inceptor_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.38\"},{\"name\":\"guardiantoken\",\"type\":\"CONSTANT\",\"expr\":\"2FaWdFEWYpE1EjZvbX9u-TDH\"},{\"name\":\"hostname_distcp_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.0.89\"},{\"name\":\"hostname_distcp_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.39\"}]",
+		"preRelation": {},
+		"postRelation": {},
+		"createTime": null,
+		"lastUpdateTime": null,
+		"preDept": [],
+		"postDept": [],
+		"email": null,
+		"sms": null,
+		"desc": "1",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "89_创建es表",
+			"downstream": "89_导入数据_es",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导入数据_es",
+			"downstream": "89_导出数据_es",
+			"relation": "YES"
+		}, {
+			"upstream": "89_导出数据_es",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "38_创建es_导入数据",
+			"relation": "YES"
+		}]
+	}
+}

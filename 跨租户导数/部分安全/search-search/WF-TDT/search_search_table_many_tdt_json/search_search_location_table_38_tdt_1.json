@@ -1,0 +1,139 @@
+{
+	"uniqueId": "a7ff143e-a8b5-445e-afea-26895d0ef594",
+	"name": "tdt_es_wf_89_1",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"owner": "admin",
+		"isPublic": false,
+		"createTime": "2020-03-23 13:17:19",
+		"lastUpdateTime": "2020-03-25 11:09:35"
+	},
+	"workspaceId": 1,
+	"executionConnectionId": 14,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "CSV_READER",
+		"dstName": "INCEPTOR_WRITER"
+	}],
+	"components": [{
+		"id": "165",
+		"dataflowId": 122,
+		"name": "CSV_READER",
+		"componentType": "READER",
+		"componentSubType": "CSV",
+		"position": {
+			"x": 841,
+			"y": 484
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-23 13:19:29",
+			"lastUpdateTime": "2020-03-23 13:19:29"
+		},
+		"componentConfigs": [{
+			"name": "Location",
+			"value": "\"/test_data/tdt_es_wf_89_zong/tdt_es_wf_89_1\""
+		}, {
+			"name": "FieldDelimiter",
+			"value": "\",\""
+		}, {
+			"name": "QuoteDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "LineDelimiter",
+			"value": "\"\\\\n\""
+		}, {
+			"name": "Encoding",
+			"value": "\"UTF-8\""
+		}, {
+			"name": "ContainFirstRow",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[13]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\"]"
+		}],
+		"_uniqueId": "READER_CSV_1585105711221_0.5777140722640743"
+	}, {
+		"id": "166",
+		"dataflowId": 122,
+		"name": "INCEPTOR_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "INCEPTOR",
+		"position": {
+			"x": 1104,
+			"y": 411
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-23 13:19:29",
+			"lastUpdateTime": "2020-03-23 13:19:29"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"tdt_es_wf_89_1\""
+		}, {
+			"name": "SinglePartition",
+			"value": "null"
+		}, {
+			"name": "PartitionColumnNames",
+			"value": "[]"
+		}, {
+			"name": "PartitionColumnTypes",
+			"value": "null"
+		}, {
+			"name": "RangePartition",
+			"value": "null"
+		}, {
+			"name": "PartitionRangeKeys",
+			"value": "[]"
+		}, {
+			"name": "PartitionRangeValues",
+			"value": "[]"
+		}, {
+			"name": "BucketNumber",
+			"value": "-1"
+		}, {
+			"name": "ClusterKey",
+			"value": "null"
+		}, {
+			"name": "SortKeys",
+			"value": "null"
+		}, {
+			"name": "SortAscDirections",
+			"value": "null"
+		}, {
+			"name": "TruncateTable",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[14]"
+		}, {
+			"name": "InputTableNames",
+			"value": "[\"tdt_es_wf_89_1\"]"
+		}, {
+			"name": "TableDetails",
+			"value": "[{\"inputTableName\":\"tdt_es_wf_89_1\",\"columns\":[{\"name\":\"n1\",\"type\":\"string\"},{\"name\":\"n2\",\"type\":\"string\"},{\"name\":\"n3\",\"type\":\"string\"},{\"name\":\"n4\",\"type\":\"date\"},{\"name\":\"n5\",\"type\":\"string\"},{\"name\":\"n6\",\"type\":\"decimal(38,10)\"},{\"name\":\"n7\",\"type\":\"smallint\"},{\"name\":\"n8\",\"type\":\"int\"},{\"name\":\"n9\",\"type\":\"string\"},{\"name\":\"n10\",\"type\":\"string\"},{\"name\":\"n11\",\"type\":\"string\"},{\"name\":\"n12\",\"type\":\"boolean\"},{\"name\":\"n13\",\"type\":\"tinyint\"},{\"name\":\"n14\",\"type\":\"decimal(38,10)\"},{\"name\":\"n15\",\"type\":\"decimal(10,2)\"}],\"selected\":true}]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"string\",\"string\",\"string\",\"date\",\"string\",\"decimal(38,10)\",\"smallint\",\"int\",\"string\",\"string\",\"string\",\"boolean\",\"tinyint\",\"decimal(38,10)\",\"decimal(10,2)\"]"
+		}],
+		"_uniqueId": "WRITER_INCEPTOR_1585105711221_0.30831719426289106"
+	}]
+}

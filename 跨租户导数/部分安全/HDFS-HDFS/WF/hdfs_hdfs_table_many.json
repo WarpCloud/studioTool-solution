@@ -1,0 +1,309 @@
+{
+	"deps": [{
+		"upstream": "35_创建表_orc",
+		"downstream": "35_导入数据_orc_1",
+		"relation": "YES"
+	}, {
+		"upstream": "35_创建表_orc",
+		"downstream": "35_导入数据_orc_2",
+		"relation": "YES"
+	}, {
+		"upstream": "35_创建表_orc",
+		"downstream": "35_导入数据_orc_3",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导入数据_orc_1",
+		"downstream": "35_导出数据_hdfs",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导入数据_orc_2",
+		"downstream": "35_导出数据_hdfs",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导入数据_orc_3",
+		"downstream": "35_导出数据_hdfs",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导出数据_hdfs",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "38_创建表_orc_导入数据",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 151,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导入数据_orc_1",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"154": "YES"
+		},
+		"postRelation": {
+			"155": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 435,
+			"y": 180
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node535:10000/default;principal=hive/_HOST@TDH;kuser=admin;password=123;auth=kerberos;krb5conf=/etc/krb5.conf\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_view_1;\\ndrop table  `test_data`.`sql_hdfs_csv_1`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hdfs_csv_1 (\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hdfs_view_1 as select * from `test_data`.`sql_hdfs_csv_1`;\\n\\ninsert into test_data.sql_hdfs_orc_wf_1 select * from test_data.sql_hdfs_view_1;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 152,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导入数据_orc_2",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"154": "YES"
+		},
+		"postRelation": {
+			"155": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 637,
+			"y": 177
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node535:10000/default;principal=hive/_HOST@TDH;kuser=admin;password=123;auth=kerberos;krb5conf=/etc/krb5.conf\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_view_2;\\ndrop table  `test_data`.`sql_hdfs_csv_2`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hdfs_csv_2 (\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hdfs_view_2 as select * from `test_data`.`sql_hdfs_csv_2`;\\n\\ninsert into test_data.sql_hdfs_orc_wf_2 select * from test_data.sql_hdfs_view_2;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 153,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导入数据_orc_3",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"154": "YES"
+		},
+		"postRelation": {
+			"155": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 854,
+			"y": 174
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node535:10000/default;principal=hive/_HOST@TDH;kuser=admin;password=123;auth=kerberos;krb5conf=/etc/krb5.conf\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_view_3;\\ndrop table  `test_data`.`sql_hdfs_csv_3`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hdfs_csv_3 (\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hdfs_view_3 as select * from `test_data`.`sql_hdfs_csv_3`;\\n\\ninsert into test_data.sql_hdfs_orc_wf_3 select * from test_data.sql_hdfs_view_3;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 154,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_创建表_orc",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"151": "YES",
+			"152": "YES",
+			"153": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 636,
+			"y": 31
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node535:10000/default;principal=hive/_HOST@TDH;kuser=admin;password=123;auth=kerberos;krb5conf=/etc/krb5.conf\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_hdfs_orc_wf_1;\\ndrop table test_data.sql_hdfs_orc_wf_2;\\ndrop table test_data.sql_hdfs_orc_wf_3;\\n\\ncreate table test_data.sql_hdfs_orc_wf_1(\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nCLUSTERED BY (n2) INTO 3 BUCKETS\\nSTORED AS ORC TBLPROPERTIES (\\\"transactional\\\"=\\\"true\\\");\\n\\n\\ncreate table test_data.sql_hdfs_orc_wf_2(\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nCLUSTERED BY (n2) INTO 3 BUCKETS\\nSTORED AS ORC TBLPROPERTIES (\\\"transactional\\\"=\\\"true\\\");\\n\\n\\ncreate table test_data.sql_hdfs_orc_wf_3(\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nCLUSTERED BY (n2) INTO 3 BUCKETS\\nSTORED AS ORC TBLPROPERTIES (\\\"transactional\\\"=\\\"true\\\");\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 155,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导出数据_hdfs",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"151": "YES",
+			"152": "YES",
+			"153": "YES"
+		},
+		"postRelation": {
+			"156": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 634,
+			"y": 326
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node535:10000/default;principal=hive/_HOST@TDH;kuser=admin;password=123;auth=kerberos;krb5conf=/etc/krb5.conf\",\"type\":\"KRB_KEYTAB\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_views_1;\\ndrop view test_data.sql_hdfs_views_2;\\ndrop view test_data.sql_hdfs_views_3;\\n\\ndrop table test_data.sql_hdfs_csvs_1;\\ndrop table test_data.sql_hdfs_csvs_2;\\ndrop table test_data.sql_hdfs_csvs_3;\\n\\ncreate view test_data.sql_hdfs_views_1 as select * from test_data.sql_hdfs_orc_wf_1;\\n\\ncreate view test_data.sql_hdfs_views_2 as select * from test_data.sql_hdfs_orc_wf_2;\\n\\ncreate view test_data.sql_hdfs_views_3 as select * from test_data.sql_hdfs_orc_wf_3;\\n\\n\\nCREATE TABLE test_data.sql_hdfs_csvs_1\\n(\\n`n1` BigInt,`n2` String,`n3` String,`n4` Date,`n5` String,`n6` Decimal(38,10),`n7` SmallInt,`n8` Int,`n9` String,`n10` String,`n11` String,`n12` Boolean,`n13` TinyInt,`n14` Decimal(38,10),`n15` Decimal(10,2)\\n)\\nSTORED AS CSVFILE location '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_1' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\nCREATE TABLE test_data.sql_hdfs_csvs_2\\n(\\n`n1` BigInt,`n2` String,`n3` String,`n4` Date,`n5` String,`n6` Decimal(38,10),`n7` SmallInt,`n8` Int,`n9` String,`n10` String,`n11` String,`n12` Boolean,`n13` TinyInt,`n14` Decimal(38,10),`n15` Decimal(10,2)\\n)\\nSTORED AS CSVFILE location '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_2' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\nCREATE TABLE test_data.sql_hdfs_csvs_3\\n(\\n`n1` BigInt,`n2` String,`n3` String,`n4` Date,`n5` String,`n6` Decimal(38,10),`n7` SmallInt,`n8` Int,`n9` String,`n10` String,`n11` String,`n12` Boolean,`n13` TinyInt,`n14` Decimal(38,10),`n15` Decimal(10,2)\\n)\\nSTORED AS CSVFILE location '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_3' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\n\\n\\nset mapred.reduce.tasks = 1;\\n\\ninsert into test_data.sql_hdfs_csvs_1 select * from test_data.sql_hdfs_views_1 DISTRIBUTE BY CEIL(RAND() * 1);\\n\\n\\ninsert into test_data.sql_hdfs_csvs_2 select * from test_data.sql_hdfs_views_2 DISTRIBUTE BY CEIL(RAND() * 1);\\n\\n\\n\\ninsert into test_data.sql_hdfs_csvs_3 select * from test_data.sql_hdfs_views_3 DISTRIBUTE BY CEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 156,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"155": "YES"
+		},
+		"postRelation": {
+			"157": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 634,
+			"y": 447
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -Dipc.client.fallback-to-simple-auth-allowed=true  -rm -r -f skipTrash hdfs://node539:8020/test_data/sql_hdfs_csvs_zong\\n\\nhadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://node536:8020/test_data/sql_hdfs_csvs_zong hdfs://172.26.5.39:8020/test_data\",\"krb\":{\"keytab\":\"/etc/workflow3/conf/workflow.keytab\",\"principal\":\"workflow/node536@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 150,
+		"id": 157,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_创建表_orc_导入数据",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"156": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 644,
+			"y": 604
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://node538:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_hdfs_csv_38_1;\\ndrop table test_data.tdt_hdfs_csv_38_2;\\ndrop table test_data.tdt_hdfs_csv_38_3;\\n\\n\\ndrop view test_data.tdt_hfds_view_38_1;\\ndrop view test_data.tdt_hfds_view_38_2;\\ndrop view test_data.tdt_hfds_view_38_3;\\n\\n\\ndrop table test_data.sql_hdfs_orc_wf_1;\\ndrop table test_data.sql_hdfs_orc_wf_2;\\ndrop table test_data.sql_hdfs_orc_wf_3;\\n\\n\\n\\nCREATE TABLE test_data.tdt_hdfs_csv_38_1 (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nSTORED AS csvfile LOCATION '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\n\\nCREATE TABLE test_data.tdt_hdfs_csv_38_2 (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nSTORED AS csvfile LOCATION '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_2' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\nCREATE TABLE test_data.tdt_hdfs_csv_38_3 (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nSTORED AS csvfile LOCATION '/test_data/sql_hdfs_csvs_zong/sql_hdfs_csvs_3' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.tdt_hfds_view_38_1 as select * from test_data.tdt_hdfs_csv_38_1;\\n\\ncreate view test_data.tdt_hfds_view_38_2 as select * from test_data.tdt_hdfs_csv_38_2;\\n\\ncreate view test_data.tdt_hfds_view_38_3 as select * from test_data.tdt_hdfs_csv_38_3;\\n\\n\\n\\nCREATE TABLE  `test_data`.`sql_hdfs_orc_wf_1` (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nCLUSTERED BY\\n(`n2`)\\nINTO\\n5 BUCKETS\\nSTORED AS ORC TBLPROPERTIES ('transactional'='true');\\n\\n\\nCREATE TABLE  `test_data`.`sql_hdfs_orc_wf_2` (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nCLUSTERED BY\\n(`n2`)\\nINTO\\n5 BUCKETS\\nSTORED AS ORC TBLPROPERTIES ('transactional'='true');\\n\\n\\n\\nCREATE TABLE  `test_data`.`sql_hdfs_orc_wf_3` (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nCLUSTERED BY\\n(`n2`)\\nINTO\\n5 BUCKETS\\nSTORED AS ORC TBLPROPERTIES ('transactional'='true');\\n\\nset transaction.type=inceptor;\\nSET mapred.reduce.tasks = 5;\\n\\ninsert into `test_data`.`sql_hdfs_orc_wf_1` select * from test_data.tdt_hfds_view_38_1;\\n\\n\\ninsert into `test_data`.`sql_hdfs_orc_wf_2` select * from test_data.tdt_hfds_view_38_2;\\n\\n\\ninsert into `test_data`.`sql_hdfs_orc_wf_3` select * from test_data.tdt_hfds_view_38_3;\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 150,
+		"name": "hdfs_跨租户多表文件互导_sql",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "admin",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[]",
+		"preRelation": null,
+		"postRelation": null,
+		"createTime": "2020-03-18 20:39:46",
+		"lastUpdateTime": "2020-03-18 20:56:53",
+		"email": null,
+		"sms": null,
+		"desc": "开安全-不开安全",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "35_创建表_orc",
+			"downstream": "35_导入数据_orc_1",
+			"relation": "YES"
+		}, {
+			"upstream": "35_创建表_orc",
+			"downstream": "35_导入数据_orc_2",
+			"relation": "YES"
+		}, {
+			"upstream": "35_创建表_orc",
+			"downstream": "35_导入数据_orc_3",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导入数据_orc_1",
+			"downstream": "35_导出数据_hdfs",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导入数据_orc_2",
+			"downstream": "35_导出数据_hdfs",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导入数据_orc_3",
+			"downstream": "35_导出数据_hdfs",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导出数据_hdfs",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "38_创建表_orc_导入数据",
+			"relation": "YES"
+		}]
+	}
+}

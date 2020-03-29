@@ -1,0 +1,118 @@
+{
+	"uniqueId": "e76b5e2c-aefd-4e84-baf0-b585941b54d3",
+	"name": "tdt_es_hdfs_38_3",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"owner": "admin",
+		"isPublic": false,
+		"createTime": "2020-03-23 12:21:32",
+		"lastUpdateTime": "2020-03-25 11:09:07"
+	},
+	"workspaceId": 1,
+	"executionConnectionId": 3,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "INCEPTOR_READER",
+		"dstName": "MULTICSV_WRITER"
+	}],
+	"components": [{
+		"id": "159",
+		"dataflowId": 116,
+		"name": "INCEPTOR_READER",
+		"componentType": "READER",
+		"componentSubType": "INCEPTOR",
+		"position": {
+			"x": 988,
+			"y": 344
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-23 13:07:47",
+			"lastUpdateTime": "2020-03-23 13:07:47"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"tdt_es_wf_csv_89_3\""
+		}, {
+			"name": "Connections",
+			"value": "[3]"
+		}, {
+			"name": "InputTableNames",
+			"value": "[\"tdt_es_wf_csv_89_3\"]"
+		}, {
+			"name": "TableDetails",
+			"value": "[{\"inputTableName\":\"tdt_es_wf_csv_89_3\",\"columns\":[{\"name\":\"n1\",\"type\":\"string\"},{\"name\":\"n2\",\"type\":\"string\"},{\"name\":\"n3\",\"type\":\"string\"},{\"name\":\"n4\",\"type\":\"string\"},{\"name\":\"n5\",\"type\":\"string\"},{\"name\":\"n6\",\"type\":\"string\"},{\"name\":\"n7\",\"type\":\"string\"},{\"name\":\"n8\",\"type\":\"string\"},{\"name\":\"n9\",\"type\":\"string\"},{\"name\":\"n10\",\"type\":\"string\"},{\"name\":\"n11\",\"type\":\"string\"},{\"name\":\"n12\",\"type\":\"string\"},{\"name\":\"n13\",\"type\":\"string\"},{\"name\":\"n14\",\"type\":\"string\"},{\"name\":\"n15\",\"type\":\"string\"}],\"selected\":true}]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\",\"string\"]"
+		}],
+		"_uniqueId": "READER_INCEPTOR_1585105669030_0.18459292830876528"
+	}, {
+		"id": "160",
+		"dataflowId": 116,
+		"name": "MULTICSV_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "MULTICSV",
+		"position": {
+			"x": 1351,
+			"y": 366
+		},
+		"basicInfo": {
+			"description": "",
+			"owner": "",
+			"isPublic": false,
+			"createTime": "2020-03-23 13:07:47",
+			"lastUpdateTime": "2020-03-23 13:07:47"
+		},
+		"componentConfigs": [{
+			"name": "Location",
+			"value": "\"/test_data/tdt_es_wf_89_zong/tdt_es_wf_89_3\""
+		}, {
+			"name": "FieldDelimiter",
+			"value": "\",\""
+		}, {
+			"name": "QuoteDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "LineDelimiter",
+			"value": "\"\\\\n\""
+		}, {
+			"name": "EscapeDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "Encoding",
+			"value": "\"UTF-8\""
+		}, {
+			"name": "BinaryEncoding",
+			"value": "\"HEX\""
+		}, {
+			"name": "NullString",
+			"value": "null"
+		}, {
+			"name": "AverageFileSize",
+			"value": "\"1GB\""
+		}, {
+			"name": "Overwrite",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[2]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[]"
+		}],
+		"_uniqueId": "WRITER_MULTICSV_1585105669030_0.7324620721229373"
+	}]
+}

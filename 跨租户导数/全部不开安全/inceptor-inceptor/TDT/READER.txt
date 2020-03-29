@@ -1,0 +1,16 @@
+
+1.inceptor_inceptor.json  TDT导数功能，小数据量
+
+  wf内容: 通过数据流任务，tdt reader端选择 csv  writer端选择orc 新建表 导入数据，
+          在通过数据流任务，tdt reader端选择 csv  writer端选择 已有表，清空数据    TDT导数功能，小数据量
+		  
+		  
+	TDT_json：
+	    1.inceptor_inceptor_tdt_1.json  选择新建表，并导入数据
+		2.incepotr_inceptor_tdt_2.json  导入数据 到已有表
+
+注意：
+不开安全的情况下需要注意管理链接有需要一下注意的设置：
+1.源端，目标端 inceptor 连接  access token 选择自定义连接 不填写 guardian token 
+2.源端，目标端hdfs连接 ，连接方式是rpc，认证方式要选账号密码(已存在的用户名，密码)
+    连接方式是web，选择无认证

@@ -1,0 +1,57 @@
+
+1.search_search_table_only.json  跨租户表文件互导   
+  源端为开安全， 目标端为不开安全
+   
+  wf内:通过workflow 选取sql任务，添加创建es表，通过TDT 创建数据流，导入数据，并通过workflow选取数据流调度，
+       再用TDT数据流导出数据，到hdfs上 然后再使用脚本内容，distcp 拷贝数据到目标hdfs，通过源端TDT，
+	   选取连接都为目标端，创建数据流，导入数据   使用wf+tdt来实现跨租户表文件互导
+   
+  
+2.search_search_table_many.json   跨租户多表文件互导 
+	 源端为开安全， 目标端为不开安全
+	
+  wf内:通过workflow 选取sql任务，添加创建多张es表，通过TDT 创建数据流，导入数据，并通过workflow选取数据流调度，
+       再用TDT数据流导出数据，到hdfs上 然后再使用脚本内容，distcp 拷贝文件夹到目标hdfs，通过源端TDT，
+	   选取连接都为目标端，创建数据流，导入数据   使用wf+tdt来实现跨租户多表文件互导
+	   
+	   
+  图片：search_search_many_tdt_1.PNG,search_search_many_tdt_2.PNG,search_search_many_tdt_3.PNG 记载的是 tdt reader端导入数据到es表 步骤
+  
+        search_search_many_tdt_4.PNG,search_search_many_tdt_5.PNG 记载的是 tdt wirter端导出数据到源端 hdfs 步骤
+		
+		
+  TDT_json:
+       1.search_search_table_only_tdt_json  文件夹  里面是TDT数据流json文件    跨租户表文件互导 TDT数据流
+	   
+	   1.search_search_location_hdfs_tdt_89.json   通过inceptor 已有的es表，导出数据到89的hdfs上
+	   2.search_search_location_hdfs_tdt_89.json  通过538hdfs连接，获取到distcp 拷贝到38的数据，导入到38inceptor es中
+	   
+	   
+	   2.search_search_table_many_tdt_json 文件夹   里面是TDT数据流json文件   跨租户多表文件互导  TDT数据流
+	   
+
+	   1.search_search_location_hdfs_89_tdt_1.json        3个json 通过inceptor 已有的3张es表，导出数据到89的hdfs上
+	     search_search_location_hdfs_89_tdt_2.json
+		 search_search_location_hdfs_89_tdt_3.json
+		 
+	   2.search_search_location_table_38_tdt_1.json      3个json 通过538hdfs连接，获取到distcp 拷贝到38的数据，导入到38inceptor es中
+	     search_search_location_table_38_tdt_2.json
+		 search_search_location_table_38_tdt_3.json
+
+
+注意：
+WF 参数解析：
+${hostname_inceptor_A} 填写源端inceptor ip
+${hostname_inceptor_B} 填写目标端inceptor ip
+${hostname_distcp_A} 填写源端namenode hdfs ip
+${hostname_distcp_B} 填写目标端namenode hdfs ip
+${guardian_token} 填写源端inceptor guardian token
+
+如果试用wf的脚本任务，但是同时需要调用hdfs等客户端，可以试用tdhclient，具体操作可详见workflow的操作文档，下面简单描述：
+1 需要把TDH-client.tar 添加到/var/lib/workflow{id}/ 目录下
+2 并重启workflow服务，才能source TDH-client 成功
+
+只支持从安全到不开安全的distcp,不支持不开安全到开安全的，执行distcp 添加的参数：
+-Dipc.client.fallback-to-simple-auth-allowed=true  这个参数不支持 源端和目标端都不开安全的环境，或者源端和目标端都开安全的环境
+例如:hadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://node089:8020/sql_hbase hdfs://172.26.5.39:8020/test_data
+	

@@ -1,0 +1,128 @@
+{
+	"uniqueId": "395336fb-71ac-4e49-b54c-d6a808909f92",
+	"name": "tdt_sync_2",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"isPublic": false,
+		"owner": "workflow",
+		"createTime": "2020-03-13 15:29:29",
+		"lastUpdateTime": "2020-03-13 15:32:10"
+	},
+	"workspaceId": 1,
+	"revision": {
+		"revisionId": 1,
+		"previousRevisionId": 0
+	},
+	"executionConnectionId": 3,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "INCEPTOR_READER",
+		"dstName": "TEXT_WRITER"
+	}],
+	"components": [{
+		"id": "257",
+		"dataflowId": 159,
+		"name": "INCEPTOR_READER",
+		"componentType": "READER",
+		"componentSubType": "INCEPTOR",
+		"position": {
+			"x": 649,
+			"y": 323
+		},
+		"basicInfo": {
+			"description": "",
+			"isPublic": false,
+			"owner": "",
+			"createTime": "2020-03-13 15:32:10",
+			"lastUpdateTime": "2020-03-13 15:32:10"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"sysnc_1\""
+		}, {
+			"name": "Connections",
+			"value": "[3]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\",\"String\"]"
+		}],
+		"_uniqueId": "READER_INCEPTOR_1585128029543_0.7554056769642115"
+	}, {
+		"id": "258",
+		"dataflowId": 159,
+		"name": "TEXT_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "TEXT",
+		"position": {
+			"x": 885,
+			"y": 299
+		},
+		"basicInfo": {
+			"description": "",
+			"isPublic": false,
+			"owner": "",
+			"createTime": "2020-03-13 15:32:10",
+			"lastUpdateTime": "2020-03-13 15:32:10"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"tdt_sync_1\""
+		}, {
+			"name": "SinglePartition",
+			"value": "null"
+		}, {
+			"name": "PartitionColumnNames",
+			"value": "null"
+		}, {
+			"name": "PartitionColumnTypes",
+			"value": "null"
+		}, {
+			"name": "RangePartition",
+			"value": "null"
+		}, {
+			"name": "PartitionRangeKeys",
+			"value": "null"
+		}, {
+			"name": "PartitionRangeValues",
+			"value": "null"
+		}, {
+			"name": "BucketNumber",
+			"value": "0"
+		}, {
+			"name": "ClusterKey",
+			"value": "null"
+		}, {
+			"name": "SortKeys",
+			"value": "null"
+		}, {
+			"name": "SortAscDirections",
+			"value": "null"
+		}, {
+			"name": "TruncateTable",
+			"value": "false"
+		}, {
+			"name": "Existed",
+			"value": "false"
+		}, {
+			"name": "Connections",
+			"value": "[7]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[]"
+		}],
+		"_uniqueId": "WRITER_TEXT_1585128029543_0.14494688912160458"
+	}]
+}

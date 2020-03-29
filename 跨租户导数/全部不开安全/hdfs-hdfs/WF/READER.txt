@@ -1,0 +1,25 @@
+
+1. hdfs_hdfs_small_hdfs_wf.json  跨租户的hdfs的小文件互导  文件大小为778kb  
+
+   wf内容：通过脚本任务，执行distcp 命令，把源端的数据文件 拷贝到目标集群的hdfs路径上  实现的跨租户的hdfs的小文件互导
+ 
+2. hdfs_hdfs_big_hdfs_wf.json  跨租户的hdfs的大文件互导   文件大小为2g
+   
+   wf内容：通过脚本任务，执行distcp 命令，把源端的数据文件 拷贝到目标集群的hdfs路径上  实现的跨租户的hdfs的大文件互导  distcp 执行时长：5min
+   
+3. hdfs_hdfs_only_table_wf.json 跨租户表文件互导 
+
+   wf内容：通过sql任务，执行创建表，导入数据到hdfs， 再通过脚本任务，执行distcp 命令，导入数据到目标端hdfs上面，再通过sql任务，在目标端
+           创建表，并导入数据
+
+
+ WF 参数解析：
+${hostname_inceptor_A} 填写源端inceptor ip
+${hostname_inceptor_B} 填写目标端inceptor ip
+${hostname_distcp_A} 填写源端namenode hdfs ip
+${hostname_distcp_B} 填写目标端namenode hdfs ip
+${guardian_token} 填写源端inceptor guardian token
+注意：
+如果试用wf的脚本任务，但是同时需要调用hdfs等客户端，可以试用tdhclient，具体操作可详见workflow的操作文档，下面简单描述：
+1 需要把TDH-client.tar 添加到/var/lib/workflow{id}/ 目录下
+2 并重启workflow服务，才能source TDH-client 成功

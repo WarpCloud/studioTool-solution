@@ -1,0 +1,116 @@
+{
+	"uniqueId": "7d10ec40-dc93-44c2-81bd-87894176bc30",
+	"name": "tdt_35_1",
+	"domainId": 1,
+	"basicInfo": {
+		"description": null,
+		"isPublic": false,
+		"owner": "workflow",
+		"createTime": "2020-03-13 12:21:12",
+		"lastUpdateTime": "2020-03-13 12:22:29"
+	},
+	"workspaceId": 1,
+	"revision": {
+		"revisionId": 1,
+		"previousRevisionId": 0
+	},
+	"executionConnectionId": 3,
+	"flowConnections": [{
+		"name": "",
+		"sourceName": "INCEPTOR_READER",
+		"dstName": "MULTICSV_WRITER"
+	}],
+	"components": [{
+		"id": "199",
+		"dataflowId": 118,
+		"name": "INCEPTOR_READER",
+		"componentType": "READER",
+		"componentSubType": "INCEPTOR",
+		"position": {
+			"x": 690,
+			"y": 306
+		},
+		"basicInfo": {
+			"description": "",
+			"isPublic": false,
+			"owner": "",
+			"createTime": "2020-03-13 12:22:29",
+			"lastUpdateTime": "2020-03-13 12:22:29"
+		},
+		"componentConfigs": [{
+			"name": "DatabaseName",
+			"value": "\"test_data\""
+		}, {
+			"name": "TableName",
+			"value": "\"test_35_orc1\""
+		}, {
+			"name": "Connections",
+			"value": "[3]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[\"n1\",\"n2\",\"n3\",\"n4\",\"n5\",\"n6\",\"n7\",\"n8\",\"n9\",\"n10\",\"n11\",\"n12\",\"n13\",\"n14\",\"n15\"]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[\"BigInt\",\"String\",\"String\",\"Date\",\"String\",\"Decimal(38,10)\",\"SmallInt\",\"Int\",\"String\",\"String\",\"String\",\"Boolean\",\"TinyInt\",\"Decimal(38,10)\",\"Decimal(10,2)\"]"
+		}],
+		"_uniqueId": "READER_INCEPTOR_1585119129699_0.6850575021405425"
+	}, {
+		"id": "200",
+		"dataflowId": 118,
+		"name": "MULTICSV_WRITER",
+		"componentType": "WRITER",
+		"componentSubType": "MULTICSV",
+		"position": {
+			"x": 941,
+			"y": 295
+		},
+		"basicInfo": {
+			"description": "",
+			"isPublic": false,
+			"owner": "",
+			"createTime": "2020-03-13 12:22:29",
+			"lastUpdateTime": "2020-03-13 12:22:29"
+		},
+		"componentConfigs": [{
+			"name": "Location",
+			"value": "\"/test_38/case1\""
+		}, {
+			"name": "FieldDelimiter",
+			"value": "\",\""
+		}, {
+			"name": "QuoteDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "LineDelimiter",
+			"value": "\"\\\\n\""
+		}, {
+			"name": "EscapeDelimiter",
+			"value": "\"\\\"\""
+		}, {
+			"name": "Encoding",
+			"value": "\"UTF-8\""
+		}, {
+			"name": "BinaryEncoding",
+			"value": "\"HEX\""
+		}, {
+			"name": "NullString",
+			"value": "null"
+		}, {
+			"name": "AverageFileSize",
+			"value": "\"1GB\""
+		}, {
+			"name": "Overwrite",
+			"value": "true"
+		}, {
+			"name": "Connections",
+			"value": "[2]"
+		}, {
+			"name": "OutputColumnNames",
+			"value": "[]"
+		}, {
+			"name": "OutputColumnTypes",
+			"value": "[]"
+		}],
+		"_uniqueId": "WRITER_MULTICSV_1585119129699_0.589301179160429"
+	}]
+}

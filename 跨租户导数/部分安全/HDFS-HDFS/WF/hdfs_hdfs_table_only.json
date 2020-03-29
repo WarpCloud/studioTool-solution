@@ -1,0 +1,213 @@
+{
+	"deps": [{
+		"upstream": "35_创建表_orc",
+		"downstream": "35_导入数据_orc",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导入数据_orc",
+		"downstream": "35_导出数据_hdfs",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "38_创建orc表_导入数据",
+		"relation": "YES"
+	}, {
+		"upstream": "35_导出数据_hdfs",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 144,
+		"id": 145,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_创建表_orc",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"146": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 651,
+			"y": 34
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.sql_hdfs_orc_wf;\\n\\ncreate table test_data.sql_hdfs_orc_wf(\\n`n1` bigint,\\n`n2` string,\\n`n3` string,\\n`n4` date,\\n`n5` string,\\n`n6` decimal(38,10),\\n`n7` smallint,\\n`n8` int,\\n`n9` string,\\n`n10` string,\\n`n11` string,\\n`n12` boolean,\\n`n13` tinyint,\\n`n14` decimal(38,10),\\n`n15` decimal(10,2))\\nCLUSTERED BY (n2) INTO 3 BUCKETS\\nSTORED AS ORC TBLPROPERTIES (\\\"transactional\\\"=\\\"true\\\");\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 144,
+		"id": 146,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导入数据_orc",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"145": "YES"
+		},
+		"postRelation": {
+			"147": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 481,
+			"y": 175
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_view;\\ndrop table  `test_data`.`sql_hdfs_csv`;\\n\\nCREATE EXTERNAL TABLE test_data.sql_hdfs_csv (\\n`n1` string,`n2` string,`n3` string,`n4` string,`n5` string,`n6` string,`n7` string,`n8` string,`n9` string,`n10` string,`n11` string,`n12` string,`n13` string,`n14` string,`n15` string\\n) \\nSTORED AS csvfile LOCATION '/tdt_auto_test_dc/autotable1' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'='|','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\n\\ncreate view test_data.sql_hdfs_view as select * from `test_data`.`sql_hdfs_csv`;\\n\\ninsert into test_data.sql_hdfs_orc_wf select * from test_data.sql_hdfs_view;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 144,
+		"id": 147,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "35_导出数据_hdfs",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"146": "YES"
+		},
+		"postRelation": {
+			"149": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 661,
+			"y": 289
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_A}:10000/default;guardianToken=${guardiantoken}\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop view test_data.sql_hdfs_views;\\n\\ndrop table test_data.sql_hdfs_csvs;\\n\\ncreate view test_data.sql_hdfs_views as select * from test_data.sql_hdfs_orc_wf;\\n\\nCREATE TABLE test_data.sql_hdfs_csvs\\n(\\n`n1` BigInt,`n2` String,`n3` String,`n4` Date,`n5` String,`n6` Decimal(38,10),`n7` SmallInt,`n8` Int,`n9` String,`n10` String,`n11` String,`n12` Boolean,`n13` TinyInt,`n14` Decimal(38,10),`n15` Decimal(10,2)\\n)\\nSTORED AS CSVFILE location '/test_data/sql_hdfs_csvs' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\nset mapred.reduce.tasks = 1;\\n\\ninsert into test_data.sql_hdfs_csvs select * from test_data.sql_hdfs_views DISTRIBUTE BY CEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 144,
+		"id": 148,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "38_创建orc表_导入数据",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"149": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 639,
+			"y": 540
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_hdfs_csv_38;\\ndrop view test_data.tdt_hfds_view_38;\\ndrop table test_data.sql_hdfs_orc_wf;\\n\\n\\nCREATE TABLE test_data.tdt_hdfs_csv_38 (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nSTORED AS csvfile LOCATION '/test_data/sql_hdfs_csvs' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\ncreate view test_data.tdt_hfds_view_38 as select * from test_data.tdt_hdfs_csv_38;\\n\\nCREATE TABLE  `test_data`.`sql_hdfs_orc_wf` (\\n`n1` bigint,`n2` string,`n3` char(2),`n4` date,`n5` string,`n6` float,`n7` smallint,`n8` int,`n9` string,`n10` string,`n11` varchar(5),`n12` boolean,`n13` tinyint,`n14` double,`n15` DECIMAL(10,2)\\n)\\nCLUSTERED BY\\n(`n2`)\\nINTO\\n5 BUCKETS\\nSTORED AS ORC TBLPROPERTIES ('transactional'='true');\\n\\nset transaction.type=inceptor;\\nSET mapred.reduce.tasks = 5;\\n\\ninsert into `test_data`.`sql_hdfs_orc_wf` select * from test_data.tdt_hfds_view_38;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 144,
+		"id": 149,
+		"owner": "admin",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"147": "YES"
+		},
+		"postRelation": {
+			"148": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 481,
+			"y": 406
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -Dipc.client.fallback-to-simple-auth-allowed=true  -rm -r -f skipTrash hdfs://${hostname_distcp_B}:8020/test_data/sql_hdfs_csvs\\n\\nhadoop distcp  -Dipc.client.fallback-to-simple-auth-allowed=true hdfs://${hostname_distcp_A}:8020/test_data/sql_hdfs_csvs hdfs://${hostname_distcp_B}:8020/test_data\\n\\n\\n\\n\\\\\",\"krb\":{\"keytab\":\"/etc/workflow3/conf/workflow.keytab\",\"principal\":\"workflow/node536@TDH\"},\"type\":\"KRB_KEYTAB\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 144,
+		"name": "hdfs_跨租户表文件互导_sql",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "admin",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"guardiantoken\",\"type\":\"CONSTANT\",\"expr\":\"IPGDUMF6pgLEOAaDpjJA-TDH\"},{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.35\"},{\"name\":\"hostname_inceptor_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.38\"},{\"name\":\"hostname_distcp_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.36\"},{\"name\":\"hostname_distcp_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.39\"}]",
+		"preRelation": null,
+		"postRelation": null,
+		"createTime": "2020-03-18 18:06:58",
+		"lastUpdateTime": "2020-03-23 18:28:19",
+		"email": null,
+		"sms": null,
+		"desc": "开安全-不开安全",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "35_创建表_orc",
+			"downstream": "35_导入数据_orc",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导入数据_orc",
+			"downstream": "35_导出数据_hdfs",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "38_创建orc表_导入数据",
+			"relation": "YES"
+		}, {
+			"upstream": "35_导出数据_hdfs",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}]
+	}
+}

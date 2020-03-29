@@ -1,0 +1,213 @@
+{
+	"deps": [{
+		"upstream": "sql_删除orc表_35",
+		"downstream": "tdt_导入数据_orc_35",
+		"relation": "YES"
+	}, {
+		"upstream": "tdt_导入数据_orc_35",
+		"downstream": "sql_导出数据_orc_hdfs_35",
+		"relation": "YES"
+	}, {
+		"upstream": "sql_导出数据_orc_hdfs_35",
+		"downstream": "distcp_拷贝数据_38",
+		"relation": "YES"
+	}, {
+		"upstream": "distcp_拷贝数据_38",
+		"downstream": "sql_hdfs数据导入_38",
+		"relation": "YES"
+	}],
+	"type": "UPDATE",
+	"version": "0.0.0",
+	"deletedTasks": [],
+	"updatedTasks": [],
+	"newTasks": [],
+	"unchangedTasks": [{
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 121,
+		"id": 122,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "tdt_导入数据_orc_35",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"126": "YES"
+		},
+		"postRelation": {
+			"123": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 442,
+			"y": 38
+		},
+		"pluginName": "dataflow",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"dataflow\":{\"domain_id\":1,\"workspace_id\":1,\"dataflow_uuid\":\"dcc08e3a-3055-4fe0-82ec-6e724579e466\",\"dataflow_var\":{}}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 121,
+		"id": 123,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "sql_导出数据_orc_hdfs_35",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"122": "YES"
+		},
+		"postRelation": {
+			"124": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 653,
+			"y": 150
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_inceptor_csv;\\ndrop view test_data.tdt_inceptor;\\n\\nCREATE VIEW  test_data.tdt_inceptor (\\n`n1`,`n2`,`n4`,`n5`,`n6`,`n7`,`n8`,`n9`,`n10`,`n11`,`n12`,`n13`,`n14`,`n15`,`n3`\\n) AS SELECT\\n`n1`,\\n`n2`,\\n`n4`,\\n`n5`,\\n`n6`,\\n`n7`,\\n`n8`,\\n`n9`,\\n`n10`,\\n`n11`,\\n`n12`,\\n`n13`,\\n`n14`,\\n`n15`,\\n`n3`\\nFROM\\n`test_data`.`tdt_inceptor_orc`;\\n\\nCREATE TABLE `test_data`.`tdt_inceptor_csv`(\\n`n1` String,`n2` String,`n4` String,`n5` String,`n6` String,`n7` String,`n8` String,`n9` String,`n10` String,`n11` String,`n12` String,`n13` String,`n14` String,`n15` String,`n3` String\\n)\\nSTORED AS CSVFILE location '/tdt_inceptor_orc' TBLPROPERTIES('quote.delim'='\\\"','escape.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','serialization.binary.field.encoding'='HEX','serialization.line.encoding'='UTF-8','serialization.null.format'='null');\\n\\nset mapred.reduce.tasks = 1;\\n\\n\\nINSERT into `test_data`.`tdt_inceptor_csv`\\nSELECT * FROM\\ntest_data.tdt_inceptor  DISTRIBUTE BY CEIL(RAND() * 1);\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 121,
+		"id": 124,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "distcp_拷贝数据_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"123": "YES"
+		},
+		"postRelation": {
+			"125": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 433,
+			"y": 300
+		},
+		"pluginName": "shell",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"shell\":{\"command\":\"source /bin/tdh_client_import.sh\\n\\nhdfs dfs -rm -r -f skipTrash hdfs://${hostname_distcp_B}:8020/test_data/tdt_inceptor_orc\\n\\nhadoop distcp hdfs://${hostname_distcp_A}:8020/tdt_inceptor_orc hdfs://${hostname_distcp_B}:8020/test_data\",\"type\":\"NONE\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 121,
+		"id": 125,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "sql_hdfs数据导入_38",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {
+			"124": "YES"
+		},
+		"postRelation": {},
+		"fileInfo": [],
+		"position": {
+			"x": 658,
+			"y": 432
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://${hostname_inceptor_B}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_inceptor_csv;\\ndrop table `test_data`.`tdt_inceptor_orc` ;\\n\\nCREATE TABLE test_data.tdt_inceptor_csv (\\n`n1` bigint,`n2` string,`n3` date,`n4` string,`n5` float,`n6` smallint,`n7` int,`n8` string,`n9` string,`n10` varchar(5),`n11` boolean,`n12` tinyint,`n13` double,`n14` DECIMAL(10,2),`n15` char(2)\\n) STORED AS csvfile LOCATION '/test_data/tdt_inceptor_orc' TBLPROPERTIES('quote.delim'='\\\"','line.delim'='\\\\n','field.delim'=',','mapreduce.csvinput.encoding'='UTF-8','reserve.first.row'='true');\\n\\nCREATE TABLE IF NOT EXISTS `test_data`.`tdt_inceptor_orc` (\\n`n1` bigint,`n2` string,`n3` date,`n4` string,`n5` float,`n6` smallint,`n7` int,`n8` string,`n9` string,`n10` varchar(5),`n11` boolean,`n12` tinyint,`n13` double,`n14` DECIMAL(10,2)\\n) PARTITIONED BY\\n(`n15` char(2))\\nCLUSTERED BY (`n2`)\\nINTO 5 BUCKETS\\nSTORED AS ORC TBLPROPERTIES ('transactional'='true');\\n\\n\\nset transaction.type=inceptor;\\nSET mapred.reduce.tasks = 5;\\nSET hive.exec.dynamic.partition=true;\\n\\ninsert into `test_data`.`tdt_inceptor_orc`  PARTITION (`n15`)\\nselect * from test_data.tdt_inceptor_csv ;\"}}",
+		"cron": null,
+		"agentId": 0
+	}, {
+		"domainId": 0,
+		"workspaceId": 0,
+		"parentTaskId": 121,
+		"id": 126,
+		"owner": "workflow",
+		"appVersion": "0.0.0",
+		"type": "PLUGIN",
+		"deployType": "DEV",
+		"name": "sql_删除orc表_35",
+		"desc": "",
+		"sourceWFId": 0,
+		"preRelation": {},
+		"postRelation": {
+			"122": "YES"
+		},
+		"fileInfo": [],
+		"position": {
+			"x": 673,
+			"y": -90
+		},
+		"pluginName": "jdbc",
+		"priority": "LOW",
+		"enabled": true,
+		"parameters": "[]",
+		"conf": "{\"warn_timeout\":0,\"execute_timeout\":0,\"retry_count\":0,\"retry_interval\":\"5m\",\"os_user\":0,\"jdbc\":{\"url\":\"jdbc:hive2://&{hostname_inceptor_A}:10000/default;\",\"type\":\"NONE\",\"content\":\"use test_data;\\n\\ndrop table test_data.tdt_inceptor_orc;\"}}",
+		"cron": null,
+		"agentId": 0
+	}],
+	"workflow": {
+		"id": 121,
+		"name": "inceptor_跨租户表文件互导",
+		"precondition": null,
+		"parentTaskId": 0,
+		"enabled": "true",
+		"graphId": 0,
+		"owner": "workflow",
+		"deployer": "system",
+		"deployType": "DEV",
+		"priority": "LOW",
+		"appVersion": "0.0.0",
+		"workspaceId": 0,
+		"domainId": 0,
+		"parameters": "[{\"name\":\"hostname_inceptor_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.35\"},{\"name\":\"hostname_inceptor_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.38\"},{\"name\":\"hostname_distcp_A\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.36\"},{\"name\":\"hostname_distcp_B\",\"type\":\"CONSTANT\",\"expr\":\"172.26.5.39\"}]",
+		"preRelation": null,
+		"postRelation": null,
+		"createTime": "2020-03-16 19:34:41",
+		"lastUpdateTime": "2020-03-25 17:54:41",
+		"email": null,
+		"sms": null,
+		"desc": "1",
+		"conf": "{\"parallel_number\":0,\"parallel_type\":\"SEQUENCE\"}",
+		"cron": "0 0 1 * * ?",
+		"deps": [{
+			"upstream": "sql_删除orc表_35",
+			"downstream": "tdt_导入数据_orc_35",
+			"relation": "YES"
+		}, {
+			"upstream": "tdt_导入数据_orc_35",
+			"downstream": "sql_导出数据_orc_hdfs_35",
+			"relation": "YES"
+		}, {
+			"upstream": "sql_导出数据_orc_hdfs_35",
+			"downstream": "distcp_拷贝数据_38",
+			"relation": "YES"
+		}, {
+			"upstream": "distcp_拷贝数据_38",
+			"downstream": "sql_hdfs数据导入_38",
+			"relation": "YES"
+		}]
+	}
+}
